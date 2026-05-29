@@ -7,29 +7,51 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#F7F6F2;color:#1A1916;font-size:13px;}
-header{padding:1.25rem 1.5rem 1rem;background:#fff;border-bottom:1px solid #E0DDD5;}
-.header-label{font-size:10px;letter-spacing:.12em;color:#9E9B95;text-transform:uppercase;margin-bottom:4px;}
-h1{font-size:15px;font-weight:700;line-height:1.3;}
-.accent-bar{width:28px;height:3px;background:#D4A843;border-radius:2px;margin-top:8px;}
-.tabs{display:flex;background:#fff;border-bottom:1px solid #E0DDD5;padding:1rem 1.5rem 0;}
-.tab-btn{padding:7px 18px 9px;font-size:12px;font-family:inherit;font-weight:500;color:#6B6760;background:transparent;border:1px solid transparent;border-bottom:none;border-radius:5px 5px 0 0;cursor:pointer;position:relative;bottom:-1px;transition:all .15s;}
+
+/* 固定在最上方的區塊 */
+.sticky-top{position:sticky;top:0;z-index:100;}
+
+header{padding:1rem 1.5rem 0.75rem;background:#fff;border-bottom:1px solid #E0DDD5;}
+.header-label{font-size:10px;letter-spacing:.12em;color:#9E9B95;text-transform:uppercase;margin-bottom:3px;}
+h1{font-size:14px;font-weight:700;line-height:1.3;}
+.accent-bar{width:24px;height:3px;background:#D4A843;border-radius:2px;margin-top:6px;}
+
+.tabs{display:flex;background:#fff;border-bottom:2px solid #E0DDD5;padding:0.75rem 1.5rem 0;}
+.tab-btn{padding:6px 18px 8px;font-size:12px;font-family:inherit;font-weight:500;color:#6B6760;background:transparent;border:1px solid transparent;border-bottom:none;border-radius:5px 5px 0 0;cursor:pointer;position:relative;bottom:-2px;transition:all .15s;}
 .tab-btn:hover{color:#1A1916;background:#F7F6F2;}
 .tab-btn.active{color:#F7F6F2;background:#1A1916;border-color:#E0DDD5;}
+
 .tab-panel{display:none;padding:1.25rem 1.5rem 2.5rem;}
 .tab-panel.active{display:block;}
+
 .legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1rem;font-size:11px;color:#6B6760;}
 .legend-item{display:flex;align-items:center;gap:5px;}
 .leg-box{width:20px;height:10px;border-radius:2px;}
+
+/* 圖表區塊：時間軸固定 */
 .chart-wrap{overflow-x:auto;}
-.chart-inner{min-width:640px;}
-.time-header{display:flex;margin-bottom:3px;}
+.chart-inner{min-width:640px;position:relative;}
+
+/* 固定時間軸列 */
+.time-header-sticky{
+  position:sticky;
+  top:0; /* 會由 JS 動態設定，貼在 sticky-top 下方 */
+  background:#F7F6F2;
+  z-index:50;
+  display:flex;
+  padding:6px 0 4px;
+  border-bottom:1px solid #E0DDD5;
+  margin-bottom:4px;
+}
 .time-tick{flex:1;font-size:10px;color:#9E9B95;}
+
 .group-label{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#9E9B95;margin:14px 0 5px;padding-bottom:3px;border-bottom:1px solid #E0DDD5;}
 .row{display:flex;align-items:center;margin-bottom:4px;height:24px;}
 .track{flex:1;position:relative;height:22px;}
 .bar,.bar-open,.bar-maybe{position:absolute;height:22px;border-radius:4px;display:flex;align-items:center;padding:0 7px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-sizing:border-box;}
 .bar-open{border-style:dashed!important;border-width:1.5px!important;color:#6B6760;}
 .bar-maybe{border-right-style:dashed!important;border-right-width:1.5px!important;}
+
 .count-section{margin-top:16px;padding-top:12px;border-top:1px solid #E0DDD5;}
 .count-label{font-size:10px;color:#9E9B95;letter-spacing:.04em;margin-bottom:4px;}
 .slot-header{position:relative;height:16px;margin-bottom:2px;}
@@ -37,21 +59,27 @@ h1{font-size:15px;font-weight:700;line-height:1.3;}
 .count-row{display:flex;}
 .count-track{flex:1;position:relative;height:24px;}
 .count-seg{position:absolute;height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;border-right:1px solid rgba(255,255,255,.5);}
+
 footer{text-align:center;padding:1.25rem;font-size:11px;color:#9E9B95;border-top:1px solid #E0DDD5;}
 </style>
 </head>
 <body>
-<header>
-  <div class="header-label">品牌活動 · 人員出勤表</div>
-  <h1>2026 / 6/6–6/7 Lalaport 品牌活動出勤</h1>
-  <div class="accent-bar"></div>
-</header>
-<nav class="tabs">
-  <button class="tab-btn active" onclick="switchTab('day1',this)">6/6（六）</button>
-  <button class="tab-btn" onclick="switchTab('day2',this)">6/7（日）</button>
-</nav>
+
+<div class="sticky-top" id="stickyTop">
+  <header>
+    <div class="header-label">品牌活動 · 人員出勤表</div>
+    <h1>2026 / 6/6–6/7 Lalaport 品牌活動出勤</h1>
+    <div class="accent-bar"></div>
+  </header>
+  <nav class="tabs">
+    <button class="tab-btn active" onclick="switchTab('day1',this)">6/6（六）</button>
+    <button class="tab-btn" onclick="switchTab('day2',this)">6/7（日）</button>
+  </nav>
+</div>
+
 <div id="day1" class="tab-panel active"></div>
 <div id="day2" class="tab-panel"></div>
+
 <footer>2026 Lalaport 品牌活動 · 人員出勤班表</footer>
 
 <script>
@@ -60,7 +88,18 @@ function switchTab(id,btn){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
+  // 更新時間軸 sticky top
+  setStickyTimeHeader();
 }
+
+function setStickyTimeHeader(){
+  const stickyH = document.getElementById('stickyTop').offsetHeight;
+  document.querySelectorAll('.time-header-sticky').forEach(el=>{
+    el.style.top = stickyH + 'px';
+  });
+}
+
+window.addEventListener('resize', setStickyTimeHeader);
 
 const GROUP_COLORS=[
   ['#FDECC8','#E8B84B','#7A5200'],
@@ -85,7 +124,9 @@ function buildChart(containerId,startH,endH,groups){
   </div>`;
 
   html+=`<div class="chart-wrap"><div class="chart-inner">`;
-  html+=`<div class="time-header">`;
+
+  // 固定時間軸
+  html+=`<div class="time-header-sticky">`;
   for(let h=startH;h<=endH;h++) html+=`<span class="time-tick">${Math.floor(h)}:00</span>`;
   html+=`</div>`;
 
@@ -189,6 +230,9 @@ buildChart('day2',9,22.5,[
     {name:'宜柔',s:15.5,e:22,maybe:true},{name:'明雯',s:15.5,e:22,maybe:true},{name:'安平',s:15.5,e:22,maybe:true},{name:'拉拉',s:15.5,e:22,maybe:true},{name:'靜芸',s:15.5,e:22,maybe:true},{name:'怡梅',s:15.5,e:22,maybe:true},{name:'珮珊',s:15.5,e:22,maybe:true},{name:'心怡',s:15.5,e:22,maybe:true},{name:'巧惠',s:15.5,e:22,maybe:true},
   ]},
 ]);
+
+// 設定時間軸 sticky top（在 buildChart 之後執行）
+setTimeout(setStickyTimeHeader, 0);
 </script>
 </body>
 </html>
