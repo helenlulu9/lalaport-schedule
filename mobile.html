@@ -4,76 +4,61 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>2026/6/6–6/7 Lalaport品牌活動出勤</title>
+<script>
+// 自動偵測：電腦寬度 >= 768px 跳轉到電腦版
+if(window.innerWidth >= 768){
+  window.location.replace('index.html');
+}
+</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#F7F6F2;color:#1A1916;font-size:13px;overscroll-behavior-y:contain;}
-
 #fixed-bar{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1.5px solid #E0DDD5;box-shadow:0 2px 6px rgba(0,0,0,.07);}
-header{padding:.7rem 1rem .5rem;}
+header{padding:.7rem 1rem .5rem;display:flex;align-items:flex-start;justify-content:space-between;}
+.header-left{}
 .header-label{font-size:9px;letter-spacing:.12em;color:#9E9B95;text-transform:uppercase;margin-bottom:2px;}
 h1{font-size:13px;font-weight:700;line-height:1.3;}
 .accent-bar{width:20px;height:2px;background:#D4A843;border-radius:1px;margin-top:5px;}
-
-.tabs{display:flex;padding:.4rem 1rem 0;border-top:0.5px solid #E0DDD5;}
-.tab-btn{padding:5px 14px 7px;font-size:11px;font-family:inherit;font-weight:500;color:#6B6760;background:transparent;border:0.5px solid transparent;border-bottom:none;border-radius:4px 4px 0 0;cursor:pointer;position:relative;bottom:-1.5px;transition:all .15s;}
-.tab-btn.active{color:#fff;background:#1A1916;border-color:#E0DDD5;}
+.switch-btn{font-size:10px;color:#9E9B95;background:#F0EFEB;border:0.5px solid #E0DDD5;border-radius:5px;padding:4px 8px;white-space:nowrap;text-decoration:none;display:inline-block;margin-top:2px;}
+.tabs{display:flex;gap:6px;padding:.4rem 1rem 0;border-top:0.5px solid #E0DDD5;}
+.tab-btn{flex:1;padding:5px 0;font-size:11px;font-family:inherit;font-weight:500;color:#6B6760;background:#fff;border:0.5px solid #E0DDD5;border-radius:5px 5px 0 0;cursor:pointer;text-align:center;transition:all .15s;position:relative;bottom:-1px;}
+.tab-btn.active{color:#fff;background:#1A1916;border-color:#1A1916;}
 .tabs-line{height:1.5px;background:#E0DDD5;}
-
-/* 時間軸 — 橫向捲動，同步主體 */
-#time-axis-wrap{
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-  background:#F0EFEB;
-  border-top:0.5px solid #E0DDD5;
-  padding:3px 1rem;
-}
+#time-axis-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;background:#F0EFEB;border-top:0.5px solid #E0DDD5;padding:3px 1rem;}
 #time-axis-wrap::-webkit-scrollbar{display:none;}
 #time-axis-inner{display:flex;}
 .time-tick{flex:1;font-size:9px;color:#8A8780;white-space:nowrap;}
-
-/* 主體捲動 */
-.tab-panel{
-  display:none;
-  overflow-x:auto;
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-  padding:.75rem 1rem 2rem;
-}
+.tab-panel{display:none;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:.75rem 1rem 2rem;}
 .tab-panel::-webkit-scrollbar{display:none;}
 .tab-panel.active{display:block;}
-
 .chart-inner{min-width:600px;}
-
 .legend{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:.75rem;font-size:10px;color:#6B6760;}
 .legend-item{display:flex;align-items:center;gap:4px;}
 .leg-box{width:16px;height:9px;border-radius:2px;}
-
 .group-label{font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#9E9B95;margin:12px 0 4px;padding-bottom:2px;border-bottom:0.5px solid #E0DDD5;}
 .row{height:21px;margin-bottom:3px;position:relative;}
 .bar,.bar-open,.bar-maybe{position:absolute;height:19px;border-radius:3px;display:flex;align-items:center;padding:0 6px;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-sizing:border-box;}
 .bar-open{border-style:dashed!important;border-width:1px!important;color:#6B6760;}
 .bar-maybe{border-right-style:dashed!important;border-right-width:1px!important;}
-
 .count-section{margin-top:12px;padding-top:10px;border-top:0.5px solid #E0DDD5;}
 .count-label{font-size:9px;color:#9E9B95;margin-bottom:3px;}
 .slot-header{position:relative;height:13px;margin-bottom:2px;}
 .slot-tick{position:absolute;font-size:8px;font-weight:600;color:#6B6760;transform:translateX(-50%);white-space:nowrap;}
 .count-track{position:relative;height:20px;}
 .count-seg{position:absolute;height:100%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;border-right:0.5px solid rgba(255,255,255,.5);}
-
-.swipe-hint{text-align:center;font-size:10px;color:#B0ADA7;padding:.5rem;background:#F7F6F2;border-top:0.5px solid #E0DDD5;letter-spacing:.04em;}
+.swipe-hint{text-align:center;font-size:10px;color:#B0ADA7;padding:.5rem;background:#F7F6F2;border-top:0.5px solid #E0DDD5;}
 footer{text-align:center;padding:1rem;font-size:10px;color:#B0ADA7;border-top:0.5px solid #E0DDD5;}
 </style>
 </head>
 <body>
-
 <div id="fixed-bar">
   <header>
-    <div class="header-label">品牌活動 · 人員出勤表</div>
-    <h1>2026 / 6/6–6/7 Lalaport 品牌活動出勤</h1>
-    <div class="accent-bar"></div>
+    <div class="header-left">
+      <div class="header-label">品牌活動 · 人員出勤表</div>
+      <h1>2026 / 6/6–6/7 Lalaport 品牌活動出勤</h1>
+      <div class="accent-bar"></div>
+    </div>
+    <a href="index.html" class="switch-btn">🖥️ 電腦版</a>
   </header>
   <nav class="tabs">
     <button class="tab-btn active" onclick="switchTab('day1',this)">6/6（六）</button>
@@ -82,133 +67,20 @@ footer{text-align:center;padding:1rem;font-size:10px;color:#B0ADA7;border-top:0.
   <div class="tabs-line"></div>
   <div id="time-axis-wrap"><div id="time-axis-inner"></div></div>
 </div>
-
 <div id="day1" class="tab-panel active"></div>
 <div id="day2" class="tab-panel"></div>
-
 <div class="swipe-hint">← 左右滑動查看完整時段 →</div>
 <footer>2026 Lalaport 品牌活動 · 人員出勤班表</footer>
-
 <script>
-const GC=[
-  ['#FDECC8','#E8B84B','#7A5200'],
-  ['#D1ECF8','#5AABCF','#1A5470'],
-  ['#D6F0E0','#52B07A','#1A5232'],
-  ['#F9D9E8','#D96FA0','#7A1F4A'],
-  ['#E8DAFA','#9B6DD6','#3D1878'],
-  ['#FFE5D0','#F4874B','#7A3010'],
-  ['#E2EDD4','#7BAE41','#334D12'],
-];
-
-function buildTimeAxis(s,e){
-  const inner=document.getElementById('time-axis-inner');
-  inner.style.minWidth='600px';
-  inner.innerHTML='';
-  for(let h=s;h<=e;h++){
-    const sp=document.createElement('span');
-    sp.className='time-tick';
-    sp.textContent=Math.floor(h)+':00';
-    inner.appendChild(sp);
-  }
-}
-
-function syncScroll(panelId){
-  const panel=document.getElementById(panelId);
-  const axisWrap=document.getElementById('time-axis-wrap');
-  let syncing=false;
-  panel.addEventListener('scroll',()=>{
-    if(syncing)return;syncing=true;
-    axisWrap.scrollLeft=panel.scrollLeft;
-    syncing=false;
-  });
-  axisWrap.addEventListener('scroll',()=>{
-    if(syncing)return;syncing=true;
-    panel.scrollLeft=axisWrap.scrollLeft;
-    syncing=false;
-  });
-}
-
-function switchTab(id,btn){
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-  if(id==='day1') buildTimeAxis(7.5,22.5);
-  else buildTimeAxis(9,22.5);
-}
-
-function buildChart(cid,s,e,groups){
-  const T=e-s;
-  const pL=h=>((h-s)/T*100).toFixed(3)+'%';
-  const pW=(a,b)=>((b-a)/T*100).toFixed(3)+'%';
-  const fmt=h=>Math.floor(h)+':'+(h%1===.5?'30':'00');
-
-  let html=`<div class="legend">
-    <span class="legend-item"><span class="leg-box" style="border:0.5px solid #999;background:#eee"></span>時間確定</span>
-    <span class="legend-item"><span class="leg-box" style="border:1px dashed #999;background:#eee"></span>結束未定</span>
-    <span class="legend-item"><span class="leg-box" style="border-top:0.5px solid #999;border-bottom:0.5px solid #999;border-left:0.5px solid #999;border-right:1px dashed #999;background:#eee"></span>可能延長</span>
-  </div><div class="chart-inner">`;
-
-  groups.forEach((g,gi)=>{
-    const [bg,bd,tx]=GC[gi%GC.length];
-    html+=`<div class="group-label">${g.label}</div>`;
-    g.people.forEach(p=>{
-      const el=p.open?'???':fmt(p.e);
-      const lbl=`${p.name}　${fmt(p.s)}–${el}`;
-      let cls,st;
-      if(p.open){cls='bar-open';st=`left:${pL(p.s)};width:${pW(p.s,p.e)};background:${bg};border-color:${bd};color:${tx};`;}
-      else if(p.maybe){cls='bar-maybe';st=`left:${pL(p.s)};width:${pW(p.s,p.e)};background:${bg};border-top:0.5px solid ${bd};border-bottom:0.5px solid ${bd};border-left:0.5px solid ${bd};border-right:1px dashed ${bd};color:${tx};`;}
-      else{cls='bar';st=`left:${pL(p.s)};width:${pW(p.s,p.e)};background:${bg};border:0.5px solid ${bd};color:${tx};`;}
-      html+=`<div class="row"><div class="${cls}" style="${st}" title="${lbl}">${lbl}</div></div>`;
-    });
-  });
-
-  const all=[];
-  groups.forEach((g,gi)=>g.people.forEach(p=>all.push({...p,gi})));
-  html+=`<div class="count-section"><div class="count-label">各時段在場人數</div>`;
-  html+=`<div class="slot-header">`;
-  for(let h=s;h<=e;h++){
-    const l=((h-s)/T*100).toFixed(3)+'%';
-    html+=`<span class="slot-tick" style="left:${l}">${Math.floor(h)}:00</span>`;
-  }
-  html+=`</div><div class="count-track">`;
-  for(let h=s;h<e;h+=0.5){
-    const mid=h+0.25,present={};
-    all.forEach(p=>{if(p.s<=mid&&p.e>mid)present[p.gi]=true;});
-    const cnt=all.filter(p=>p.s<=mid&&p.e>mid).length;
-    const w=(0.5/T*100).toFixed(3)+'%',l=((h-s)/T*100).toFixed(3)+'%';
-    const gx=Object.keys(present).map(Number);
-    let sb='#EEECE8',st2='#9E9B95';
-    if(gx.length){
-      const dom=gx.reduce((b,gi)=>{const c=all.filter(p=>p.gi===gi&&p.s<=mid&&p.e>mid).length;return c>(b.c||0)?{gi,c}:b;},{});
-      const [bg,,tx]=GC[dom.gi%GC.length];sb=bg;st2=tx;
-    }
-    html+=`<div class="count-seg" style="left:${l};width:${w};background:${sb};color:${cnt>0?st2:'transparent'}">${cnt>0?cnt:''}</div>`;
-  }
-  html+=`</div></div></div>`;
-  document.getElementById(cid).innerHTML=html;
-  syncScroll(cid);
-}
-
-buildChart('day1',7.5,22.5,[
-  {label:'7:30 早班',people:[{name:'怡如',s:7.5,e:22.5,open:true},{name:'玉珊',s:7.5,e:22.5,open:true}]},
-  {label:'8:30 班',people:[{name:'宜柔',s:8.5,e:16.5},{name:'筱昀',s:8.5,e:16.5},{name:'靜芸',s:8.5,e:16.5},{name:'拉拉',s:8.5,e:16.5},{name:'怡梅',s:8.5,e:16.5}]},
-  {label:'9:30 班',people:[{name:'鈺茹',s:9.5,e:13.5},{name:'瓊芳',s:9.5,e:16.5},{name:'秋如',s:9.5,e:16.5},{name:'昀萱',s:9.5,e:16.5},{name:'貞甄',s:9.5,e:16.5},{name:'育菱',s:9.5,e:16.5},{name:'詩雅',s:9.5,e:16.5},{name:'慧芬',s:9.5,e:16.5}]},
-  {label:'13:30 班',people:[{name:'傅暄',s:13.5,e:17.5},{name:'金葵',s:13.5,e:17.5},{name:'雅涵',s:13.5,e:17.5},{name:'雅怡',s:13.5,e:17.5}]},
-  {label:'14:00 班',people:[{name:'美齡',s:13.5,e:21.5},{name:'舒涵',s:14,e:21.5},{name:'品媛',s:14,e:21.5},{name:'Hana',s:14,e:21.5},{name:'Yuri',s:14,e:21.5}]},
-  {label:'15:30 班',people:[{name:'秀美',s:15.5,e:19.5},{name:'世芬',s:15.5,e:19.5}]},
-  {label:'15:00 晚班',people:[{name:'佳臻',s:15,e:22.5},{name:'明雯',s:15,e:22.5},{name:'安平',s:15,e:22.5},{name:'佳霖',s:15,e:22.5},{name:'美君',s:15,e:22.5},{name:'珮珊',s:15,e:22.5},{name:'心怡',s:15,e:22.5},{name:'巧惠',s:15,e:22.5}]},
-]);
-
-buildChart('day2',9,22.5,[
-  {label:'預計 9:00 早班',people:[{name:'小剛',s:9,e:22.5,open:true},{name:'惠琪',s:9,e:22.5,open:true},{name:'怡如',s:9,e:22.5,open:true},{name:'玉珊',s:9,e:22.5,open:true}]},
-  {label:'10:00 班',people:[{name:'佳臻',s:10,e:16.5},{name:'筱昀',s:10,e:16.5},{name:'鈺茹',s:10,e:16.5},{name:'傅暄',s:10,e:16.5},{name:'佳霖',s:10,e:16.5},{name:'秋如',s:10,e:16.5},{name:'美齡',s:10,e:16.5},{name:'昀萱',s:10,e:16.5},{name:'貞甄',s:10,e:16.5},{name:'少琪',s:10,e:16.5},{name:'雅怡',s:10,e:16.5},{name:'慧芬',s:10,e:16.5}]},
-  {label:'13:30 班',people:[{name:'金葵',s:13.5,e:17.5},{name:'雅涵',s:13.5,e:17.5}]},
-  {label:'14:00 班',people:[{name:'欣亭',s:13.5,e:21},{name:'舒涵',s:14,e:21.5},{name:'品媛',s:14,e:21.5},{name:'Hana',s:14,e:21.5},{name:'Yuri',s:14,e:21.5}]},
-  {label:'15:30 班',people:[{name:'秀美',s:15.5,e:19.5}]},
-  {label:'15:30 晚班（可能延長）',people:[{name:'宜柔',s:15.5,e:22,maybe:true},{name:'明雯',s:15.5,e:22,maybe:true},{name:'安平',s:15.5,e:22,maybe:true},{name:'拉拉',s:15.5,e:22,maybe:true},{name:'靜芸',s:15.5,e:22,maybe:true},{name:'怡梅',s:15.5,e:22,maybe:true},{name:'珮珊',s:15.5,e:22,maybe:true},{name:'心怡',s:15.5,e:22,maybe:true},{name:'巧惠',s:15.5,e:22,maybe:true}]},
-]);
-
+const GC=[['#FDECC8','#E8B84B','#7A5200'],['#D1ECF8','#5AABCF','#1A5470'],['#D6F0E0','#52B07A','#1A5232'],['#F9D9E8','#D96FA0','#7A1F4A'],['#E8DAFA','#9B6DD6','#3D1878'],['#FFE5D0','#F4874B','#7A3010'],['#E2EDD4','#7BAE41','#334D12']];
+function buildTimeAxis(s,e){const inner=document.getElementById('time-axis-inner');inner.style.minWidth='600px';inner.innerHTML='';for(let h=s;h<=e;h++){const sp=document.createElement('span');sp.className='time-tick';sp.textContent=Math.floor(h)+':00';inner.appendChild(sp);}}
+function syncScroll(pid){const panel=document.getElementById(pid);const ax=document.getElementById('time-axis-wrap');let sy=false;panel.addEventListener('scroll',()=>{if(sy)return;sy=true;ax.scrollLeft=panel.scrollLeft;sy=false;});ax.addEventListener('scroll',()=>{if(sy)return;sy=true;panel.scrollLeft=ax.scrollLeft;sy=false;});}
+function switchTab(id,btn){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');if(id==='day1')buildTimeAxis(7.5,22.5);else buildTimeAxis(9,22.5);}
+function buildChart(cid,s,e,groups){const T=e-s;const pL=h=>((h-s)/T*100).toFixed(3)+'%';const pW=(a,b)=>((b-a)/T*100).toFixed(3)+'%';const fmt=h=>Math.floor(h)+':'+(h%1===.5?'30':'00');let html=`<div class="legend"><span class="legend-item"><span class="leg-box" style="border:0.5px solid #999;background:#eee"></span>時間確定</span><span class="legend-item"><span class="leg-box" style="border:1px dashed #999;background:#eee"></span>結束未定</span><span class="legend-item"><span class="leg-box" style="border-top:0.5px solid #999;border-bottom:0.5px solid #999;border-left:0.5px solid #999;border-right:1px dashed #999;background:#eee"></span>可能延長</span></div><div class="chart-inner">`;
+groups.forEach((g,gi)=>{const [bg,bd,tx]=GC[gi%GC.length];html+=`<div class="group-label">${g.label}</div>`;g.people.forEach(p=>{const el=p.open?'???':fmt(p.e);const lbl=`${p.name}　${fmt(p.s)}–${el}`;let cls,st;if(p.open){cls='bar-open';st=`left:${pL(p.s)};width:${pW(p.s,p.e)};background:${bg};border-color:${bd};color:${tx};`;}else if(p.maybe){cls='bar-maybe';st=`left:${pL(p.s)};width:${pW(p.s,p.e)};background:${bg};border-top:0.5px solid ${bd};border-bottom:0.5px solid ${bd};border-left:0.5px solid ${bd};border-right:1px dashed ${bd};color:${tx};`;}else{cls='bar';st=`left:${pL(p.s)};width:${pW(p.s,p.e)};background:${bg};border:0.5px solid ${bd};color:${tx};`;}html+=`<div class="row"><div class="${cls}" style="${st}" title="${lbl}">${lbl}</div></div>`;});});
+const all=[];groups.forEach((g,gi)=>g.people.forEach(p=>all.push({...p,gi})));html+=`<div class="count-section"><div class="count-label">各時段在場人數</div><div class="slot-header">`;for(let h=s;h<=e;h++){const l=((h-s)/T*100).toFixed(3)+'%';html+=`<span class="slot-tick" style="left:${l}">${Math.floor(h)}:00</span>`;}html+=`</div><div class="count-track">`;for(let h=s;h<e;h+=0.5){const mid=h+0.25,present={};all.forEach(p=>{if(p.s<=mid&&p.e>mid)present[p.gi]=true;});const cnt=all.filter(p=>p.s<=mid&&p.e>mid).length;const w=(0.5/T*100).toFixed(3)+'%',l=((h-s)/T*100).toFixed(3)+'%';const gx=Object.keys(present).map(Number);let sb='#EEECE8',st2='#9E9B95';if(gx.length){const dom=gx.reduce((b,gi)=>{const c=all.filter(p=>p.gi===gi&&p.s<=mid&&p.e>mid).length;return c>(b.c||0)?{gi,c}:b;},{});const [bg,,tx]=GC[dom.gi%GC.length];sb=bg;st2=tx;}html+=`<div class="count-seg" style="left:${l};width:${w};background:${sb};color:${cnt>0?st2:'transparent'}">${cnt>0?cnt:''}</div>`;}html+=`</div></div></div>`;document.getElementById(cid).innerHTML=html;syncScroll(cid);}
+buildChart('day1',7.5,22.5,[{label:'7:30 早班',people:[{name:'怡如',s:7.5,e:22.5,open:true},{name:'玉珊',s:7.5,e:22.5,open:true}]},{label:'8:30 班',people:[{name:'宜柔',s:8.5,e:16.5},{name:'筱昀',s:8.5,e:16.5},{name:'靜芸',s:8.5,e:16.5},{name:'拉拉',s:8.5,e:16.5},{name:'怡梅',s:8.5,e:16.5}]},{label:'9:30 班',people:[{name:'鈺茹',s:9.5,e:13.5},{name:'瓊芳',s:9.5,e:16.5},{name:'秋如',s:9.5,e:16.5},{name:'昀萱',s:9.5,e:16.5},{name:'貞甄',s:9.5,e:16.5},{name:'育菱',s:9.5,e:16.5},{name:'詩雅',s:9.5,e:16.5},{name:'慧芬',s:9.5,e:16.5}]},{label:'13:30 班',people:[{name:'傅暄',s:13.5,e:17.5},{name:'金葵',s:13.5,e:17.5},{name:'雅涵',s:13.5,e:17.5},{name:'雅怡',s:13.5,e:17.5}]},{label:'14:00 班',people:[{name:'美齡',s:13.5,e:21.5},{name:'舒涵',s:14,e:21.5},{name:'品媛',s:14,e:21.5},{name:'Hana',s:14,e:21.5},{name:'Yuri',s:14,e:21.5}]},{label:'15:30 班',people:[{name:'秀美',s:15.5,e:19.5},{name:'世芬',s:15.5,e:19.5}]},{label:'15:00 晚班',people:[{name:'佳臻',s:15,e:22.5},{name:'明雯',s:15,e:22.5},{name:'安平',s:15,e:22.5},{name:'佳霖',s:15,e:22.5},{name:'美君',s:15,e:22.5},{name:'珮珊',s:15,e:22.5},{name:'心怡',s:15,e:22.5},{name:'巧惠',s:15,e:22.5}]}]);
+buildChart('day2',9,22.5,[{label:'預計 9:00 早班',people:[{name:'小剛',s:9,e:22.5,open:true},{name:'惠琪',s:9,e:22.5,open:true},{name:'怡如',s:9,e:22.5,open:true},{name:'玉珊',s:9,e:22.5,open:true}]},{label:'10:00 班',people:[{name:'佳臻',s:10,e:16.5},{name:'筱昀',s:10,e:16.5},{name:'鈺茹',s:10,e:16.5},{name:'傅暄',s:10,e:16.5},{name:'佳霖',s:10,e:16.5},{name:'秋如',s:10,e:16.5},{name:'美齡',s:10,e:16.5},{name:'昀萱',s:10,e:16.5},{name:'貞甄',s:10,e:16.5},{name:'少琪',s:10,e:16.5},{name:'雅怡',s:10,e:16.5},{name:'慧芬',s:10,e:16.5}]},{label:'13:30 班',people:[{name:'金葵',s:13.5,e:17.5},{name:'雅涵',s:13.5,e:17.5}]},{label:'14:00 班',people:[{name:'欣亭',s:13.5,e:21},{name:'舒涵',s:14,e:21.5},{name:'品媛',s:14,e:21.5},{name:'Hana',s:14,e:21.5},{name:'Yuri',s:14,e:21.5}]},{label:'15:30 班',people:[{name:'秀美',s:15.5,e:19.5}]},{label:'15:30 晚班（可能延長）',people:[{name:'宜柔',s:15.5,e:22,maybe:true},{name:'明雯',s:15.5,e:22,maybe:true},{name:'安平',s:15.5,e:22,maybe:true},{name:'拉拉',s:15.5,e:22,maybe:true},{name:'靜芸',s:15.5,e:22,maybe:true},{name:'怡梅',s:15.5,e:22,maybe:true},{name:'珮珊',s:15.5,e:22,maybe:true},{name:'心怡',s:15.5,e:22,maybe:true},{name:'巧惠',s:15.5,e:22,maybe:true}]}]);
 buildTimeAxis(7.5,22.5);
 </script>
 </body>
